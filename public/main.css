@@ -1,0 +1,125 @@
+* {
+    font-family: "Poppins", "sans-serif";
+    font-weight: bold!important;
+    outline: none!important;
+}
+
+body {
+    /* background-color: #212121!important; */
+    /* color: #fff!important; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 3em!important;
+    padding: 0em;
+    margin: 0em;
+    width: 100vw;
+    height: 100vh;
+}
+
+i, a, p, h1, h2, h3, h4, h5, h6{
+    margin: 0em!important;
+}
+
+.drop-down {
+    background-color: #fff;
+    color: #212121;
+    border: 0px;
+    padding: 0em;
+    margin: 0em;
+}
+
+.dropdown-menu.show{
+    background-color: #fff;
+    color: #212121;
+    border: 1px solid #212121;
+}
+
+.drop-down-options {
+    /* background-color: #fff; */
+    color: #212121;
+    border: 0px;
+}
+
+.list{
+    width: 8em;
+    margin: 0em;
+    display: inline-block;
+    margin-left: 1em;
+}
+
+
+a , .list>a {
+    color: #212121;
+    text-decoration: none!important;
+    margin: 0.3em!important ;
+}
+
+.icon{
+    margin-right: 0.5em!important;
+}
+
+row {
+    display: flex;
+    justify-content: center;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding: 0.5em;
+    column-gap: 1em;
+}
+
+column, form {
+    display: flex;
+    justify-content: center;
+    /* justify-content: right; */
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em;
+    row-gap: 1em;
+    width: 100%;
+}
+
+.button {
+    color: #fff;
+    background-color: #212121;
+    width: 5em;
+    height: 2.5em;
+    border: 0px;
+    border-radius: 15px;
+    font-size: 1em;
+    margin-left: auto;
+}
+
+.button:active {
+    background-color: #313131;
+}
+
+.center {
+    width: 100%;
+    text-align: center;
+}
+
+form{
+    align-items: start;
+    padding: 0em 2em;
+}
+
+.input{
+    padding: 1em;
+    border: none;
+    border-radius: 10px;
+    width: 10em;
+    height: 3em;
+    color: #212121;
+    background-color: #fff;
+    width: 90%;
+}
+
+.input::placeholder{
+    color: #aaa;
+}
+
+#text{
+    height: 6em;
+}
