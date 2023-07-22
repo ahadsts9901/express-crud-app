@@ -7,14 +7,13 @@ let router = express.Router()
 let posts = [
     {
         id: nanoid(),
-        title: "post 1",
-        text: "hell"
+        title: "Abdul Ahad",
+        text: "I am Abdul Ahad and I have done this assignment"
     }
 ]
 
 // POST    /api/v1/post
 router.post('/post', (req, res, next) => {
-    console.log('this is signup!', new Date());
 
     if (
         !req.body.title
@@ -54,7 +53,6 @@ router.get('/post/:postId', (req, res, next) => {
 
 //GET  ONE   POST   /api/v1/post/:postId
 router.get('/posts', (req, res, next) => {
-    console.log('this is signup!', new Date());
     res.send(posts);
 })
 
@@ -75,5 +73,34 @@ router.delete('/post/:postId', (req, res, next) => {
         res.status(404).send('Post not found');
     }
 });
+
+// EDIT post
+
+// PUT /api/v1/post/:postId
+router.put('/post/:postId', (req, res, next) => {
+  
+    const postId = req.params.postId;
+  
+    // Find the post index in the posts array
+    const postIndex = posts.findIndex(post => post.id === postId);
+  
+    // If the post with the given ID exists, update it
+    if (postIndex !== -1) {
+      // Check if both title and text are provided in the request body
+      if (!req.body.title || !req.body.text) {
+        res.status(403).send('Title and text are required for updating a post');
+        return;
+      }
+  
+      // Update the post with the new data
+      posts[postIndex].title = req.body.title;
+      posts[postIndex].text = req.body.text;
+  
+      res.send('Post updated');
+    } else {
+      res.status(404).send('Post not found');
+    }
+  });
+  
 
 export default router

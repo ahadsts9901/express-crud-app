@@ -116,11 +116,11 @@ form{
     width: 90%;
 }
 
-.input::placeholder{
+::placeholder{
     color: #aaa;
 }
 
-#text{
+#text, .text{
     height: 6em!important;
 }
 
@@ -182,7 +182,7 @@ form{
 
 .post{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     /* justify-content: right; */
     flex-direction: column;
     align-items: center;
@@ -205,4 +205,17 @@ form{
 
 .regards{
     font-size: 0.7em;
+}
+
+.scroll{
+   overflow-y: hidden;
+   overflow-x: auto;
+}
+
+.scroll::-moz-scrollbar {
+    display: none;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
 }

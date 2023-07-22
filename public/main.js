@@ -12,8 +12,8 @@ function createPost(event) {
             console.log(response.data);
             Swal.fire({
                 icon: 'success',
-                title: 'Post Deleted',
-                timer: 1500,
+                title: 'Post Added',
+                timer: 1000,
                 showConfirmButton: false
             });
             renderPost();
@@ -40,14 +40,16 @@ function renderPost() {
 
                 let titleElement = document.createElement("h2");
                 titleElement.textContent = post.title;
+                titleElement.className += " scroll";
                 postElement.appendChild(titleElement);
 
                 let textElement = document.createElement("p");
+                textElement.className += " scroll";
                 textElement.textContent = post.text;
                 postElement.appendChild(textElement);
                 postElement.dataset.postId = post.id;
 
-                let row =  document.createElement("div")
+                let row = document.createElement("div")
                 row.className += " space-around"
 
                 let regards = document.createElement("p")
@@ -55,19 +57,25 @@ function renderPost() {
                 regards.textContent = "Regards! Muhammad Ahad"
                 row.appendChild(regards)
 
-                let edit = document.createElement("i")
-                edit.className += " regards bi bi-pencil-fill"
-                // edit.addEventListener("click", edit)
-                row.appendChild(edit)
+                // Inside the loop that creates the post elements
+                let edit = document.createElement("i");
+                edit.className += " regards bi bi-pencil-fill";
+                edit.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    let postId = this.parentNode.parentNode.dataset.postId;
+                    editPost(postId);
+                });
+                row.appendChild(edit);
+
 
                 let del = document.createElement("i")
                 del.className += " regards bi bi-trash-fill"
-                del.addEventListener("click", function(event) {
+                del.addEventListener("click", function (event) {
                     event.preventDefault();
                     let postId = this.parentNode.parentNode.dataset.postId;
                     deletePost(postId);
                 });
-                
+
                 row.appendChild(del)
 
                 postElement.appendChild(row)
@@ -102,7 +110,7 @@ function deletePost(postId) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Post Deleted',
-                            timer: 1500,
+                            timer: 1000,
                             showConfirmButton: false
                         });
                         // If the post was deleted successfully, re-render the posts
@@ -113,7 +121,6 @@ function deletePost(postId) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Failed to delete post',
-                            timer: 1500,
                             showConfirmButton: false
                         });
                     });
@@ -123,6 +130,7 @@ function deletePost(postId) {
                     icon: 'error',
                     title: 'Invalid Password',
                     text: 'Please enter correct password',
+                    timer: 1000,
                     showConfirmButton: false
                 });
             }
@@ -130,10 +138,100 @@ function deletePost(postId) {
     });
 }
 
+// edit post
+
+function editPost(postId) {
+    Swal.fire({
+      title: 'Enter Password',
+      input: 'password',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      cancelButtonColor: "#212121",
+      confirmButtonText: 'Edit',
+      confirmButtonColor: "#212121",
+      showLoaderOnConfirm: true,
+      preConfirm: (password) => {
+        if (password === '48597555') {
+          // If the password is correct, display an edit form
+          axios.get(`/api/v1/post/${postId}`)
+            .then(response => {
+              const post = response.data;
+              Swal.fire({
+                title: 'Edit Post',
+                html: `
+                  <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" required>
+                  <textarea id="editText" class="swal2-input text" placeholder="Post Text" required></textarea>
+                `,
+                showCancelButton: true,
+                cancelButtonColor: "#212121",
+                confirmButtonText: 'Edit',
+                confirmButtonColor: "#212121",
+                preConfirm: () => {
+                  // Get the updated title and text
+                  const editedTitle = document.getElementById('editTitle').value;
+                  const editedText = document.getElementById('editText').value;
+  
+                  if (!editedTitle.trim() || !editedText.trim()) {
+                    Swal.showValidationMessage('Title and text are required');
+                    return false;
+                  }
+  
+                  // Make the API call to update the post
+                  return axios.put(`/api/v1/post/${postId}`, {
+                      title: editedTitle,
+                      text: editedText
+                    })
+                    .then(response => {
+                      console.log(response.data);
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Post Updated',
+                        timer: 1000,
+                        showConfirmButton: false
+                      });
+                      // If the post was updated successfully, re-render the posts
+                      renderPost();
+                    })
+                    .catch(error => {
+                      console.log(error.data);
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Failed to update post',
+                        timer: 1000,
+                        showConfirmButton: false
+                      });
+                    });
+                }
+              });
+            })
+            .catch(error => {
+              console.log(error.data);
+              Swal.fire({
+                icon: 'error',
+                title: 'Failed to fetch post',
+                timer: 1000,
+                showConfirmButton: false
+              });
+            });
+        } else {
+          // If the password is incorrect, display an error message
+          Swal.fire({
+            icon: 'error',
+            title: 'Invalid Password',
+            text: 'Please enter correct password',
+            showConfirmButton: false
+          });
+        }
+      }
+    });
+  }
+  
 
 // refresh page
 
-document.addEventListener("readystatechange", function() {
+document.addEventListener("readystatechange", function () {
     if (document.readyState === "complete") {
         renderPost();
     }
