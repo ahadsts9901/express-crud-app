@@ -10,22 +10,12 @@ function createPost(event) {
     })
         .then(function (response) {
             console.log(response.data);
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 1000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-              })
-              
-              Toast.fire({
+            Swal.fire({
                 icon: 'success',
-                title: 'Added'
-              })
+                title: 'Post Deleted',
+                timer: 1500,
+                showConfirmButton: false
+            });
             renderPost();
         })
         .catch(function (error) {
@@ -92,17 +82,54 @@ function renderPost() {
 // delete post function
 
 function deletePost(postId) {
-    // baseUrl/api/v1/post/:postId
-    axios.delete(`/api/v1/post/${postId}`)
-        .then(function (response) {
-            console.log(response.data);
-            // If the post was deleted successfully, re-render the posts
-            renderPost();
-        })
-        .catch(function (error) {
-            console.log(error.data);
-        });
+    Swal.fire({
+        title: 'Enter Password',
+        input: 'password',
+        inputAttributes: {
+            autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        cancelButtonColor: "#212121",
+        confirmButtonText: 'Delete',
+        confirmButtonColor: "#212121",
+        showLoaderOnConfirm: true,
+        preConfirm: (password) => {
+            if (password === '48597555') {
+                // If the password is correct, send the DELETE request
+                return axios.delete(`/api/v1/post/${postId}`)
+                    .then(response => {
+                        console.log(response.data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Post Deleted',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                        // If the post was deleted successfully, re-render the posts
+                        renderPost();
+                    })
+                    .catch(error => {
+                        console.log(error.data);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to delete post',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    });
+            } else {
+                // If the password is incorrect, display an error message
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Password',
+                    text: 'Please enter correct password',
+                    showConfirmButton: false
+                });
+            }
+        }
+    });
 }
+
 
 // refresh page
 
