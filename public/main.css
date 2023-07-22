@@ -5,6 +5,9 @@
 }
 
 body {
+    background-image: url(./background.png);
+    background-repeat: repeat;
+    background-position: center;
     /* background-color: #212121!important; */
     /* color: #fff!important; */
     display: flex;
@@ -18,7 +21,15 @@ body {
     height: 100vh;
 }
 
-i, a, p, h1, h2, h3, h4, h5, h6{
+i,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0em!important;
 }
 
@@ -30,7 +41,7 @@ i, a, p, h1, h2, h3, h4, h5, h6{
     margin: 0em;
 }
 
-.dropdown-menu.show{
+.dropdown-menu.show {
     background-color: #fff;
     color: #212121;
     border: 1px solid #212121;
@@ -42,21 +53,21 @@ i, a, p, h1, h2, h3, h4, h5, h6{
     border: 0px;
 }
 
-.list{
+.list {
     width: 8em;
     margin: 0em;
     display: inline-block;
     margin-left: 1em;
 }
 
-
-a , .list>a {
+a,
+.list>a {
     color: #212121;
     text-decoration: none!important;
-    margin: 0.3em!important ;
+    margin: 0.3em!important;
 }
 
-.icon{
+.icon {
     margin-right: 0.5em!important;
 }
 
@@ -69,7 +80,8 @@ row {
     column-gap: 1em;
 }
 
-column, form {
+column,
+form {
     display: flex;
     justify-content: center;
     /* justify-content: right; */
@@ -100,12 +112,12 @@ column, form {
     text-align: center;
 }
 
-form{
+form {
     align-items: start;
     padding: 0em 2em;
 }
 
-.input{
+.input {
     padding: 1em;
     border: none;
     border-radius: 10px;
@@ -116,11 +128,12 @@ form{
     width: 90%;
 }
 
-::placeholder{
+::placeholder {
     color: #aaa;
 }
 
-#text, .text{
+#text,
+.text {
     height: 6em!important;
 }
 
@@ -135,17 +148,17 @@ form{
     border-radius: 10px;
     /* -webkit-box-shadow: inset 0 0 6px #212121; */
     background-color: #212121;
-    border:none;
+    border: none;
 }
 
 #text::-moz-scrollbar-track {
     background-color: #fff;
-    border:none;
+    border: none;
 }
 
 #text::-webkit-scrollbar-track {
     background-color: #fff;
-    border:none;
+    border: none;
 }
 
 #text::-webkit-scrollbar {
@@ -159,10 +172,10 @@ form{
     border-radius: 10px;
     /* -webkit-box-shadow: inset 0 0 6px #212121; */
     background-color: #212121;
-    border:none;
+    border: none;
 }
 
-.space-around{
+.space-around {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -170,17 +183,17 @@ form{
     padding: 0em;
 }
 
-.result{
+.result {
     display: flex;
     justify-content: center;
     gap: 1em;
     flex-wrap: wrap;
     width: 100%;
-    /* border: 2px solid #212121;
-    padding: 1em 0em; */
+    /* border: 2px solid #212121; */
+    padding: 1em 0em;
 }
 
-.post{
+.post {
     display: flex;
     justify-content: space-between;
     /* justify-content: right; */
@@ -192,25 +205,25 @@ form{
     border: 2px dashed #212121;
 }
 
-.result>.post>p{
+.result>.post>p {
     font-size: 0.9em;
     width: 100%;
     text-align: left;
 }
 
-.result>.post>row{
+.result>.post>row {
     padding: 0em;
     column-gap: 0.5em;
 }
 
-.regards{
+.regards {
     font-size: 0.7em;
 }
 
-.scroll{
-   overflow-y: hidden;
-   overflow-x: auto;
-   width: 100%;
+.scroll {
+    overflow-y: hidden;
+    overflow-x: auto;
+    width: 100%;
 }
 
 .scroll::-moz-scrollbar {

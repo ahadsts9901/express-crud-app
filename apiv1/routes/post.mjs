@@ -1,23 +1,19 @@
-
 import express from 'express';
 import { nanoid } from 'nanoid'
 let router = express.Router()
 
 // not recommended at all - server should be stateless
-let posts = [
-    {
-        id: nanoid(),
-        title: "Abdul Ahad",
-        text: "I am Abdul Ahad and I have done this assignment"
-    }
-]
+let posts = [{
+    id: nanoid(),
+    title: "Abdul Ahad",
+    text: "I am Abdul Ahad and I have done this assignment"
+}]
 
 // POST    /api/v1/post
 router.post('/post', (req, res, next) => {
 
-    if (
-        !req.body.title
-        || !req.body.text
+    if (!req.body.title ||
+        !req.body.text
     ) {
         res.status(403);
         res.send(`required parameters missing, 
@@ -29,7 +25,7 @@ router.post('/post', (req, res, next) => {
         return;
     }
 
-    posts.push({
+    posts.unshift({
         id: nanoid(),
         title: req.body.title,
         text: req.body.text,
@@ -78,29 +74,29 @@ router.delete('/post/:postId', (req, res, next) => {
 
 // PUT /api/v1/post/:postId
 router.put('/post/:postId', (req, res, next) => {
-  
+
     const postId = req.params.postId;
-  
+
     // Find the post index in the posts array
     const postIndex = posts.findIndex(post => post.id === postId);
-  
+
     // If the post with the given ID exists, update it
     if (postIndex !== -1) {
-      // Check if both title and text are provided in the request body
-      if (!req.body.title || !req.body.text) {
-        res.status(403).send('Title and text are required for updating a post');
-        return;
-      }
-  
-      // Update the post with the new data
-      posts[postIndex].title = req.body.title;
-      posts[postIndex].text = req.body.text;
-  
-      res.send('Post updated');
+        // Check if both title and text are provided in the request body
+        if (!req.body.title || !req.body.text) {
+            res.status(403).send('Title and text are required for updating a post');
+            return;
+        }
+
+        // Update the post with the new data
+        posts[postIndex].title = req.body.title;
+        posts[postIndex].text = req.body.text;
+
+        res.send('Post updated');
     } else {
-      res.status(404).send('Post not found');
+        res.status(404).send('Post not found');
     }
-  });
-  
+});
+
 
 export default router
