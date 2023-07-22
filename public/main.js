@@ -3,10 +3,13 @@ function createPost(event) {
     let postTitle = document.querySelector("#title");
     let postText = document.querySelector("#text");
 
+    let timestamp = new Date().toISOString();
+
     // baseUrl/api/v1/post
     axios.post(`/api/v1/post`, {
         title: postTitle.value,
-        text: postText.value
+        text: postText.value,
+        timestamp: timestamp
     })
         .then(function (response) {
             console.log(response.data);
@@ -40,6 +43,12 @@ function renderPost() {
             posts.forEach(function (post) {
                 let postElement = document.createElement("div");
                 postElement.className += " post"
+
+                // let time = document.createElement("p")
+                // time.className += " regards center"
+                // time.style.fontSize = " 0.7em"
+                // time.textContent = moment(post.timestamp).fromNow()
+                // postElement.appendChild(time)
 
                 let titleElement = document.createElement("h2");
                 titleElement.textContent = post.title;
@@ -78,10 +87,9 @@ function renderPost() {
                     let postId = this.parentNode.parentNode.dataset.postId;
                     deletePost(postId);
                 });
-
                 row.appendChild(del)
-
                 postElement.appendChild(row)
+
                 postContainer.appendChild(postElement);
             });
         })
