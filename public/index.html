@@ -47,7 +47,7 @@
         </div>
     </row>
 
-    <form>
+    <form onsubmit="createPost(event)">
         <h2>Create New Post</h2>
         <label for="title">Title</label>
         <input required id="title" type="text" placeholder="Enter Title" class="input">
@@ -227,6 +227,8 @@
 
     <!-- nanoid -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/nanoid"></script> -->
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- javascript -->

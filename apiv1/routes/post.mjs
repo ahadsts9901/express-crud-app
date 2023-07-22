@@ -1,11 +1,12 @@
 
 import express from 'express';
+import { nanoid } from 'nanoid'
 let router = express.Router()
 
 // not recommended at all - server should be stateless
 let posts = [
     {
-        id: 11,
+        id: nanoid(),
         title: "abc post title",
         text: "some post text"
     }
@@ -15,15 +16,14 @@ let posts = [
 router.post('/post', (req, res, next) => {
     console.log('this is signup!', new Date());
 
-    if (!req.body.id
-        ||!req.body.title
+    if (
+        !req.body.title
         || !req.body.text
     ) {
         res.status(403);
         res.send(`required parameters missing, 
         example request body:
         {
-            id: 11,
             title: "abc post title",
             text: "some post text"
         } `);
@@ -31,7 +31,7 @@ router.post('/post', (req, res, next) => {
     }
 
     posts.push({
-        id: 11,
+        id: nanoid(),
         title: req.body.title,
         text: req.body.text,
     })
