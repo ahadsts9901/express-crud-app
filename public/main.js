@@ -1,12 +1,12 @@
 function createPost(event) {
     event.preventDefault()
-    let postTitle = document.querySelector("#title").value;
-    let postText = document.querySelector("#text").value;
+    let postTitle = document.querySelector("#title");
+    let postText = document.querySelector("#text");
 
     // baseUrl/api/v1/post
     axios.post(`/api/v1/post`, {
-        title: postTitle,
-        text: postText
+        title: postTitle.value,
+        text: postText.value
     })
         .then(function (response) {
             console.log(response.data);
@@ -23,6 +23,9 @@ function createPost(event) {
             console.log(error.data);
             document.querySelector(".result").innerHTML = "error in post submission"
         })
+
+    postTitle.value = ""
+    postText.value = ""
 }
 
 function renderPost() {
@@ -161,8 +164,8 @@ function editPost(postId) {
               Swal.fire({
                 title: 'Edit Post',
                 html: `
-                  <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" required>
-                  <textarea id="editText" class="swal2-input text" placeholder="Post Text" required></textarea>
+                <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" required>
+                <textarea id="editText" class="swal2-input text" placeholder="Post Text" required></textarea>
                 `,
                 showCancelButton: true,
                 cancelButtonColor: "#212121",
