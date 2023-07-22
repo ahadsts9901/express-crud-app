@@ -164,8 +164,10 @@ form{
 
 .space-around{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    column-gap: 0.5em;
+    padding: 0em;
 }
 
 .result{
@@ -173,22 +175,30 @@ form{
     justify-content: center;
     gap: 1em;
     flex-wrap: wrap;
+    width: 100%;
     /* border: 2px solid #212121;
     padding: 1em 0em; */
 }
 
-.result>column{
-    width: 15em!important;
-    height: fit-content;
+.post{
+    display: flex;
+    justify-content: center;
+    /* justify-content: right; */
+    flex-direction: column;
+    align-items: center;
     padding: 1.5em;
+    row-gap: 1em;
+    width: 15em!important;
     border: 2px dashed #212121;
 }
 
-.result>column>p{
+.result>.post>p{
     font-size: 0.9em;
+    width: 100%;
+    text-align: left;
 }
 
-.result>column>row{
+.result>.post>row{
     padding: 0em;
     column-gap: 0.5em;
 }

@@ -7,8 +7,8 @@ let router = express.Router()
 let posts = [
     {
         id: nanoid(),
-        title: "abc post title",
-        text: "some post text"
+        title: "post 1",
+        text: "hell"
     }
 ]
 
@@ -38,19 +38,10 @@ router.post('/post', (req, res, next) => {
 
     res.send('post created');
 })
-// GET     /api/v1/posts
-router.get('/posts', (req, res, next) => {
-    console.log('this is signup!', new Date());
-    res.send(posts);
-})
 
-// GET     /api/v1/post/:postId
+// GET  ALL   POSTS   /api/v1/posts/
 router.get('/post/:postId', (req, res, next) => {
     console.log('this is signup!', new Date());
-
-    if (isNaN(req.params.postId)) {
-        res.status(403).send(`post id must be a valid number, no alphabet is allowed in post id`)
-    }
 
     for (let i = 0; i < posts.length; i++) {
         if (posts[i].id === Number(req.params.postId)) {
@@ -61,15 +52,28 @@ router.get('/post/:postId', (req, res, next) => {
     res.send('post not found with id ' + req.params.postId);
 })
 
-// PUT     /api/v1/post/:userId/:postId
-router.put('/post/:userId/:postId', (req, res, next) => {
+//GET  ONE   POST   /api/v1/post/:postId
+router.get('/posts', (req, res, next) => {
     console.log('this is signup!', new Date());
-    res.send('post created');
+    res.send(posts);
 })
-// DELETE  /api/v1/post/:userId/:postId
-router.delete('/post/:userId/:postId', (req, res, next) => {
+
+// DELETE  /api/v1/post/:postId
+router.delete('/post/:postId', (req, res, next) => {
     console.log('this is signup!', new Date());
-    res.send('post created');
-})
+
+    const postId = req.params.postId;
+
+    // Find the post index in the posts array
+    const postIndex = posts.findIndex(post => post.id === postId);
+
+    // If the post with the given ID exists, remove it
+    if (postIndex !== -1) {
+        posts.splice(postIndex, 1);
+        res.send('Post deleted');
+    } else {
+        res.status(404).send('Post not found');
+    }
+});
 
 export default router

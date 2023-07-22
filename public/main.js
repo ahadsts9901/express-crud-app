@@ -10,7 +10,23 @@ function createPost(event) {
     })
         .then(function (response) {
             console.log(response.data);
-            getAllPost();
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              
+              Toast.fire({
+                icon: 'success',
+                title: 'Added'
+              })
+            renderPost();
         })
         .catch(function (error) {
             // handle error
@@ -19,36 +35,79 @@ function createPost(event) {
         })
 }
 
-function getAllPost() {
+function renderPost() {
     // baseUrl/api/v1/post
     axios.get(`/api/v1/posts`)
         .then(function (response) {
-            const posts = response.data;
-            const postContainer = document.querySelector(".result");
-
+            let posts = response.data;
+            let postContainer = document.querySelector(".result");
             postContainer.innerHTML = "";
 
+            // Loop through the posts and create elements for each post
             posts.forEach(function (post) {
-                const postElement = document.createElement("div");
-                // postElement.classList.add("post");
+                let postElement = document.createElement("div");
+                postElement.className += " post"
 
-                const titleElement = document.createElement("h2");
+                let titleElement = document.createElement("h2");
                 titleElement.textContent = post.title;
-
-                const textElement = document.createElement("p");
-                textElement.textContent = post.text;
-
-                // Append title and text elements to the post element
                 postElement.appendChild(titleElement);
-                postElement.appendChild(textElement);
 
-                // Append the post element to the container
+                let textElement = document.createElement("p");
+                textElement.textContent = post.text;
+                postElement.appendChild(textElement);
+                postElement.dataset.postId = post.id;
+
+                let row =  document.createElement("div")
+                row.className += " space-around"
+
+                let regards = document.createElement("p")
+                regards.className += " regards"
+                regards.textContent = "Regards! Muhammad Ahad"
+                row.appendChild(regards)
+
+                let edit = document.createElement("i")
+                edit.className += " regards bi bi-pencil-fill"
+                // edit.addEventListener("click", edit)
+                row.appendChild(edit)
+
+                let del = document.createElement("i")
+                del.className += " regards bi bi-trash-fill"
+                del.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    let postId = this.parentNode.parentNode.dataset.postId;
+                    deletePost(postId);
+                });
+                
+                row.appendChild(del)
+
+                postElement.appendChild(row)
                 postContainer.appendChild(postElement);
             });
         })
         .catch(function (error) {
-            // handle error
             console.log(error.data);
-            // You can display an error message if needed.
         });
 }
+
+// delete post function
+
+function deletePost(postId) {
+    // baseUrl/api/v1/post/:postId
+    axios.delete(`/api/v1/post/${postId}`)
+        .then(function (response) {
+            console.log(response.data);
+            // If the post was deleted successfully, re-render the posts
+            renderPost();
+        })
+        .catch(function (error) {
+            console.log(error.data);
+        });
+}
+
+// refresh page
+
+document.addEventListener("readystatechange", function() {
+    if (document.readyState === "complete") {
+        renderPost();
+    }
+});
