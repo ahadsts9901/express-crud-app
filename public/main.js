@@ -52,7 +52,7 @@ function renderPost() {
 
                 let titleElement = document.createElement("h2");
                 titleElement.textContent = post.title;
-                titleElement.className += " scroll";
+                titleElement.className += " scrollH";
                 postElement.appendChild(titleElement);
 
                 let textElement = document.createElement("p");
@@ -242,8 +242,6 @@ function editPost(postId) {
 
 // refresh page
 
-document.addEventListener("readystatechange", function() {
-    if (document.readyState === "complete") {
-        renderPost();
-    }
+document.addEventListener("DOMContentLoaded", function () {
+    renderPost();
 });

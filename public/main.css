@@ -194,7 +194,6 @@ form {
 }
 
 .post {
-    background-color:#fff ;
     display: flex;
     justify-content: space-between;
     /* justify-content: right; */
@@ -203,7 +202,9 @@ form {
     padding: 1.5em;
     row-gap: 1em;
     width: 15em!important;
+    /* height: fit-content!important; */
     border: 2px dashed #212121;
+    background-color: #fff;
 }
 
 .result>.post>p {
@@ -222,15 +223,64 @@ form {
 }
 
 .scroll {
-    overflow-y: hidden;
+    min-height: 1em!important;
+    max-height: 6em!important;
+    overflow-y: auto;
     overflow-x: auto;
     width: 100%;
 }
 
 .scroll::-moz-scrollbar {
-    display: none;
+    height: 2px;
+    width: 2px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.scroll::-moz-scrollbar-thumb {
+    height: 2px;
+    width: 2px!important;
+    border-radius: 10px;
+    /* -webkit-box-shadow: inset 0 0 6px #212121; */
+    background-color: #212121;
+    border: none;
+}
+
+.scroll::-moz-scrollbar-track {
+    background-color: #fff;
+    border: none;
+}
+
+.scroll::-webkit-scrollbar-track {
+    background-color: #fff;
+    border: none;
 }
 
 .scroll::-webkit-scrollbar {
+    height: 2px;
+    width: 2px;
+    background-color: #fff;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    height: 2px;
+    width: 2px!important;
+    background-color: #212121;
+    border: none;
+}
+
+.scrollH {
+    overflow-y: hidden;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.scrollH::-moz-scrollbar {
+    width: 100%;
+    display: none;
+}
+
+.scrollH::-webkit-scrollbar {
+    width: 100%;
     display: none;
 }
